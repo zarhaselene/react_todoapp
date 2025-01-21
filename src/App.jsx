@@ -5,25 +5,22 @@ import { HiBars3BottomLeft } from "react-icons/hi2";
 import { BiSolidError } from "react-icons/bi";
 
 function App() {
-  // store the todos
   const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem("todos");
     return savedTodos ? JSON.parse(savedTodos) : [];
   });
+
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-  // manage text input
   const [inputValue, setInputValue] = useState("");
-  // manage error message
   const [errorMessage, setErrorMessage] = useState("");
 
-  // function to add todo
   const addTodo = () => {
     if (!inputValue.trim()) {
       setErrorMessage(
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 text-error-color">
           <BiSolidError className="text-xl" /> Task cannot be empty.
         </div>
       );
@@ -36,24 +33,24 @@ function App() {
       )
     ) {
       setErrorMessage(
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 text-error-color">
           <BiSolidError className="text-xl" />
           This task already exists!
         </div>
       );
       return;
     }
+
     const newTodo = {
       id: Date.now(),
       title: inputValue,
       done: false,
     };
-    setTodos([...todos, newTodo]); // update array with new todo
-    setInputValue(""); // clear the input field
+    setTodos([...todos, newTodo]);
+    setInputValue("");
     setErrorMessage("");
   };
 
-  // function to change status of todo
   const toggleDone = (id) => {
     setTodos(
       todos.map((todo) =>
@@ -62,35 +59,34 @@ function App() {
     );
   };
 
-  // function to remove a todo
   const removeTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
     <>
-      <header className="text-center ">
-        <h1 className="text-white font-bold text-3xl">Todo App</h1>
-        <p className="text-gray-400 text-sm">
+      <header className="text-center">
+        <h1 className="text-text-color font-bold text-3xl">Todo App</h1>
+        <p className="text-muted-text text-sm">
           Stay organized, one task at a time.
         </p>
       </header>
-      <div className="h-3/4 overflow-hidden max-w-lg mx-auto my-10 p-5 bg-darkBg rounded shadow-lg">
+      <div className="h-3/4 overflow-hidden max-w-lg mx-auto my-10 p-5 bg-bg-color rounded shadow-lg">
         <div>
-          <h2 className="text-2xl mt-8 text-white font-bold text-center">
+          <h2 className="text-2xl mt-8 text-text-color font-bold text-center">
             {new Date().toLocaleDateString("en-US", {
               weekday: "long",
             })}
           </h2>
-          <p className="text-1xl text-gray-500 text-center mb-4">
+          <p className="text-1xl text-muted-text text-center mb-4">
             {new Date().toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
           </p>
-          <div className="flex gap-2 mb-4 relative">
-            <HiBars3BottomLeft className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <div className="flex gap-2 my-5 relative">
+            <HiBars3BottomLeft className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-text" />
             <input
               type="text"
               value={inputValue}
@@ -98,20 +94,19 @@ function App() {
                 setInputValue(e.target.value);
                 setErrorMessage("");
               }}
-              onKeyDown={(e) => e.key === "Enter" && addTodo()} // Enter key to add todo
-              className="w-full pl-10 border border-border p-2 rounded bg-darkCard text-gray-300 outline-none"
-              placeholder="Add a task..."
+              onKeyDown={(e) => e.key === "Enter" && addTodo()}
+              className="w-full pl-10 focus:border-primary-accent focus:ring-2 focus:ring-primary-accent p-3 rounded bg-input-bg text-text-color outline-none transition-all"
+              placeholder="Add a new task..."
             />
             <button
               onClick={addTodo}
-              aria-label="Add new task"
-              className="bg-darkCard border border-border hover:border-accent text-white px-4 py-2 rounded"
+              className="bg-primary-accent hover:bg-hover-color text-white hover:text-primary-accent px-5 py-3 rounded transition-all hover:border-primary-accent"
             >
               Add
             </button>
           </div>
           {errorMessage && (
-            <p className="my-3 bg-red-500/20 text-red-400 px-3 py-2 text-sm rounded animate-fadeIn">
+            <p className="my-3 bg-error-color/20 text-error-color px-3 py-2 text-sm rounded animate-fadeIn">
               {errorMessage}
             </p>
           )}

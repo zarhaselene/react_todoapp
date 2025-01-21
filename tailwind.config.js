@@ -4,10 +4,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        darkBg: "#2C2F38",
-        darkCard: "#343A40",
-        accent: "#FF5470",
-        border: "#2E3238",
+        "bg-color": "#292635",
+        "card-bg": "#2F3240",
+        "text-color": "#F8F8F2",
+        "muted-text": "#939393",
+        "input-bg": "#353847",
+        "primary-accent": "#F377A7",
+        "hover-color": "#1a1a1a",
+        "error-color": "#FF5555",
       },
     },
   },
