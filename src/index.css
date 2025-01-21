@@ -34,10 +34,6 @@ body {
   min-height: 100vh;
   background-color: #292d32;
 }
-/* scrollbar */
-::-webkit-scrollbar {
-  display: none;
-}
 
 h1 {
   font-size: 3.2em;
