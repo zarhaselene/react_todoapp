@@ -15,16 +15,24 @@ function App() {
 
   // manage text input
   const [inputValue, setInputValue] = useState("");
+  // manage error message
+  const [errorMessage, setErrorMessage] = useState("");
 
   // function to add todo
   const addTodo = () => {
-    if (!inputValue.trim()) return; // prevent adding empty string
+    if (!inputValue.trim()) {
+      setErrorMessage("Task cannot be empty.");
+      return;
+    }
+
     if (
       todos.some(
         (todo) => todo.title.toLowerCase() === inputValue.toLowerCase()
       )
-    )
-      return; // prevent duplicate todos
+    ) {
+      setErrorMessage("This task already exists!"); // Show error message
+      return;
+    }
     const newTodo = {
       id: Date.now(),
       title: inputValue,
@@ -32,6 +40,7 @@ function App() {
     };
     setTodos([...todos, newTodo]); // update array with new todo
     setInputValue(""); // clear the input field
+    setErrorMessage("");
   };
 
   // function to change status of todo
@@ -72,7 +81,10 @@ function App() {
             <input
               type="text"
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              onChange={(e) => {
+                setInputValue(e.target.value);
+                setErrorMessage("");
+              }}
               onKeyDown={(e) => e.key === "Enter" && addTodo()} // Enter key to add todo
               className="w-full pl-10 border border-border p-2 rounded bg-darkCard text-gray-300 outline-none"
               placeholder="Add a task..."
@@ -85,6 +97,9 @@ function App() {
               Add
             </button>
           </div>
+          {errorMessage && (
+            <p className="text-red-400 text-sm my-1">{errorMessage}</p>
+          )}
         </div>
         <div className="h-4/5 overflow-y-auto">
           <ul>
