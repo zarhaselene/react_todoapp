@@ -29,9 +29,14 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
+  background-color: #292d32;
+}
+/* scrollbar */
+::-webkit-scrollbar {
+  display: none;
 }
 
 h1 {
