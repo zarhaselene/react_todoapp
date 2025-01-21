@@ -5,9 +5,9 @@ module.exports = {
     extend: {
       colors: {
         darkBg: "#2C2F38",
-        darkCard: "#3A3f4B",
+        darkCard: "#343A40",
         accent: "#FF5470",
-        textLight: "#EAEAEA",
+        border: "#2E3238",
       },
     },
   },
