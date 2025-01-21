@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import TodoItem from "./components/TodoItem";
 import { HiBars3BottomLeft } from "react-icons/hi2";
+import { BiSolidError } from "react-icons/bi";
 
 function App() {
   // store the todos
@@ -21,7 +22,11 @@ function App() {
   // function to add todo
   const addTodo = () => {
     if (!inputValue.trim()) {
-      setErrorMessage("Task cannot be empty.");
+      setErrorMessage(
+        <div className="flex items-center gap-2">
+          <BiSolidError className="text-xl" /> Task cannot be empty.
+        </div>
+      );
       return;
     }
 
@@ -30,7 +35,12 @@ function App() {
         (todo) => todo.title.toLowerCase() === inputValue.toLowerCase()
       )
     ) {
-      setErrorMessage("This task already exists!"); // Show error message
+      setErrorMessage(
+        <div className="flex items-center gap-2">
+          <BiSolidError className="text-xl" />
+          This task already exists!
+        </div>
+      );
       return;
     }
     const newTodo = {
@@ -98,7 +108,9 @@ function App() {
             </button>
           </div>
           {errorMessage && (
-            <p className="text-red-400 text-sm my-1">{errorMessage}</p>
+            <p className="my-3 bg-red-500/20 text-red-400 px-3 py-2 text-sm rounded animate-fadeIn">
+              {errorMessage}
+            </p>
           )}
         </div>
         <div className="h-4/5 overflow-y-auto">
