@@ -69,8 +69,11 @@ function App() {
 
   return (
     <>
-      <header>
-        <h1 className=" text-white font-bold">Todo App</h1>
+      <header className="text-center ">
+        <h1 className="text-white font-bold text-3xl">Todo App</h1>
+        <p className="text-gray-400 text-sm">
+          Stay organized, one task at a time.
+        </p>
       </header>
       <div className="h-3/4 overflow-hidden max-w-lg mx-auto my-10 p-5 bg-darkBg rounded shadow-lg">
         <div>
