@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import TodoItem from "./components/TodoItem";
 import { HiBars3BottomLeft } from "react-icons/hi2";
 
 function App() {
   // store the todos
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    const savedTodos = localStorage.getItem("todos");
+    return savedTodos ? JSON.parse(savedTodos) : [];
+  });
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   // manage text input
   const [inputValue, setInputValue] = useState("");
 
